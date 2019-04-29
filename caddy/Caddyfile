@@ -1,0 +1,6 @@
+http://beta.blog.drdplus.loc {
+    tls mail@jaroslavtyc.com
+    gzip
+    root /var/www/beta.blog/output
+    log /var/log/caddy
+}

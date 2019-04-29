@@ -1,0 +1,20 @@
+version: "3"
+services:
+  beta.blog:
+    build: .
+    container_name: beta.blog.drdplus.loc
+    volumes:
+      - ./beta.blog:/var/www/beta.blog:delegated
+    labels:
+      - "traefik.backend=beta.blog"
+      - "traefik.frontend.rule=Host:beta.blog.drdplus.loc"
+      - "traefik.docker.network=docker-www"
+      - "traefik.port=80"
+    networks:
+      - default
+      - proxy
+
+networks:
+  proxy:
+    external:
+      name: docker-www
