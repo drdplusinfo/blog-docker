@@ -53,7 +53,7 @@ COPY docker.sh /
 COPY ./_docker /
 COPY ./beta.blog /var/www/update.blog
 
-RUN chown -R www-data:www-data /var/www /home/www-data
+RUN mkdir -p /var/www/update.blog/node_modules && chown -R www-data:www-data /var/www/update.blog/node_modules /home/www-data
 
 USER www-data
 
