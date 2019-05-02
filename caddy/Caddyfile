@@ -1,6 +1,23 @@
 http://beta.blog.drdplus.loc {
     tls mail@jaroslavtyc.com
     gzip
-    root /var/www/beta.blog/output
+    fastcgi / 127.0.0.1:9000 php {
+        ext   .php
+        split .php
+        index index.php
+    }
+    root /var/www/beta.blog
+    log /var/log/caddy
+}
+
+http://update.blog.drdplus.loc {
+    tls mail@jaroslavtyc.com
+    gzip
+    fastcgi / 127.0.0.1:9000 php {
+        ext   .php
+        split .php
+        index index.php
+    }
+    root /var/www/update.blog
     log /var/log/caddy
 }

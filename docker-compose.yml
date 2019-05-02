@@ -3,11 +3,31 @@ services:
   beta.blog:
     build: .
     container_name: beta.blog.drdplus.loc
+    environment:
+      XDEBUG_CONFIG: "remote_host=172.31.0.1 remote_enable=1 idekey=PHPSTORM remote_log=/tmp/xdebug.log"
+      PHP_IDE_CONFIG: "serverName=beta.blog.drdplus.loc"
     volumes:
-      - ./beta.blog:/var/www/beta.blog:delegated
+      - ./beta.blog/output:/var/www/beta.blog:delegated
     labels:
       - "traefik.backend=beta.blog"
       - "traefik.frontend.rule=Host:beta.blog.drdplus.loc"
+      - "traefik.docker.network=docker-www"
+      - "traefik.port=80"
+    networks:
+      - default
+      - proxy
+
+  update.blog:
+    build: .
+    container_name: update.blog.drdplus.loc
+    environment:
+      XDEBUG_CONFIG: "remote_host=172.31.0.1 remote_enable=1 idekey=PHPSTORM remote_log=/tmp/xdebug.log"
+      PHP_IDE_CONFIG: "serverName=update.blog.drdplus.loc"
+    volumes:
+      - ./beta.blog:/var/www/update.blog:delegated
+    labels:
+      - "traefik.backend=update.blog"
+      - "traefik.frontend.rule=Host:update.blog.drdplus.loc"
       - "traefik.docker.network=docker-www"
       - "traefik.port=80"
     networks:

@@ -29,8 +29,18 @@ RUN pecl channel-update pecl.php.net \
     && pecl install yaml-2.0.0 \
     && docker-php-ext-enable yaml
 
-RUN docker-php-ext-install pdo_mysql intl \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
+# RUN yes | pecl install xdebug-2.6.1 \
+#     && docker-php-ext-enable xdebug \
+#     && docker-php-ext-install pdo_mysql intl
+
+RUN \
+ usermod -u 1000 www-data && \
+ groupmod -g 1000 www-data && \
+ usermod -d /home/www-data -s /bn/bash www-data
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer && \
+	chmod +x /usr/local/bin/composer && \
+    chown www-data:www-data /usr/local/bin/composer
 
 COPY ./caddy /etc/caddy
 
@@ -48,5 +58,3 @@ ENV PROJECT_ENVIRONMENT dev
 COPY docker.sh /
 
 ENTRYPOINT ["sh", "/docker.sh"]
-
-EXPOSE 80
