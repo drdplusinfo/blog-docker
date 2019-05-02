@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd /var/www/beta.blog/ && nohup sh -c node_modules/.bin/gulp &
+cd /var/www/update.blog/ && nohup sh -c node_modules/.bin/gulp &
 
 nohup sh -c php-fpm &
 

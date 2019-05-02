@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
       libyaml-0-2 libyaml-dev \
       git \
       apt-transport-https  \
+      sudo \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
@@ -44,17 +45,24 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 COPY ./caddy /etc/caddy
 
-COPY ./beta.blog /var/www
-
-WORKDIR /var/www/beta.blog
-
-RUN npm install
-
 RUN echo 'alias ll="ls -al"' >> ~/.bashrc \
     && mkdir -p /var/log/php/tracy && chown -R www-data /var/log/php && chmod +w /var/log/php
 
-ENV PROJECT_ENVIRONMENT dev
-
 COPY docker.sh /
+
+COPY ./_docker /
+COPY ./beta.blog /var/www/update.blog
+
+RUN chown -R www-data:www-data /var/www /home/www-data
+
+USER www-data
+
+WORKDIR /var/www/update.blog
+
+RUN npm install
+
+USER root
+
+ENV PROJECT_ENVIRONMENT dev
 
 ENTRYPOINT ["sh", "/docker.sh"]
