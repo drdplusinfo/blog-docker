@@ -43,8 +43,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 	chmod +x /usr/local/bin/composer && \
     chown www-data:www-data /usr/local/bin/composer
 
-COPY ./caddy /etc/caddy
-
 RUN echo 'alias ll="ls -al"' >> ~/.bashrc \
     && mkdir -p /var/log/php/tracy && chown -R www-data /var/log/php && chmod +w /var/log/php
 

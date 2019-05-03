@@ -8,6 +8,9 @@ http://beta.blog.drdplus.loc {
     }
     root /var/www/beta.blog
     log /var/log/caddy
+    errors {
+        404 404.html
+    }
 }
 
 http://update.blog.drdplus.loc {
