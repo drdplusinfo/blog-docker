@@ -1,4 +1,4 @@
-http://beta.blog.drdplus.loc {
+http://beta.blog.drdplus.loc:2015 {
     tls mail@jaroslavtyc.com
     gzip
     fastcgi / 127.0.0.1:9000 php {
@@ -13,7 +13,7 @@ http://beta.blog.drdplus.loc {
     }
 }
 
-http://update.blog.drdplus.loc {
+http://update.blog.drdplus.loc:2015 {
     tls mail@jaroslavtyc.com
     gzip
     fastcgi / 127.0.0.1:9000 php {

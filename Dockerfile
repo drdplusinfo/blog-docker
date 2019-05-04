@@ -44,22 +44,20 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
     chown www-data:www-data /usr/local/bin/composer
 
 RUN echo 'alias ll="ls -al"' >> ~/.bashrc \
-    && mkdir -p /var/log/php/tracy && chown -R www-data /var/log/php && chmod +w /var/log/php
-
-COPY docker.sh /
+    && mkdir -p /var/log/php/tracy && chown -R www-data /var/log/php && chmod +w /var/log/php && \
+    touch /var/log/caddy && chown www-data /var/log/caddy
 
 COPY ./_docker /
 COPY ./beta.blog /var/www/update.blog
 
-RUN mkdir -p /var/www/update.blog/node_modules && chown -R www-data:www-data /var/www/update.blog/node_modules /home/www-data
+RUN mkdir -p /var/www/update.blog/node_modules && \
+	chown -R www-data:www-data /var/www/update.blog/node_modules /home/www-data
 
 USER www-data
 
 WORKDIR /var/www/update.blog
 
 RUN npm install
-
-USER root
 
 ENV PROJECT_ENVIRONMENT dev
 
