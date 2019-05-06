@@ -28,7 +28,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN pecl channel-update pecl.php.net \
     && pecl install yaml-2.0.0 \
-    && docker-php-ext-enable yaml
+    && docker-php-ext-enable yaml \
+    && docker-php-ext-install intl
 
 # RUN yes | pecl install xdebug-2.6.1 \
 #     && docker-php-ext-enable xdebug \
