@@ -1,4 +1,4 @@
-http://beta.blog.drdplus.loc:2015 {
+http://blog.drdplus.loc:2015 {
     tls mail@jaroslavtyc.com
     gzip
     fastcgi / 127.0.0.1:9000 php {
@@ -6,7 +6,7 @@ http://beta.blog.drdplus.loc:2015 {
         split .php
         index index.php
     }
-    root /var/www/beta.blog
+    root /var/www/blog
     log /var/log/caddy
     errors {
         404 404.html

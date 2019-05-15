@@ -32,8 +32,7 @@ RUN pecl channel-update pecl.php.net \
     && docker-php-ext-install intl
 
 # RUN yes | pecl install xdebug-2.6.1 \
-#     && docker-php-ext-enable xdebug \
-#     && docker-php-ext-install pdo_mysql intl
+#     && docker-php-ext-enable xdebug
 
 RUN \
  usermod -u 1000 www-data && \
@@ -49,7 +48,7 @@ RUN echo 'alias ll="ls -al"' >> ~/.bashrc \
     touch /var/log/caddy && chown www-data /var/log/caddy
 
 COPY ./_docker /
-COPY ./beta.blog /var/www/update.blog
+COPY ./blog /var/www/update.blog
 
 RUN mkdir -p /var/www/update.blog/node_modules && \
 	chown -R www-data:www-data /var/www/update.blog/node_modules /home/www-data
